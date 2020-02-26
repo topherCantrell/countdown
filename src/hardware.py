@@ -1,11 +1,9 @@
-
 import RPi.GPIO as GPIO
 import spidev  # https://github.com/doceme/py-spidev
 
-
-PIN_BT_UP   = GPIO_13
-PIN_BT_SET  = GPIO_19
-PIN_BT_DOWN = GPIO_26
+PIN_BT_UP   = 13
+PIN_BT_SET  = 19
+PIN_BT_DOWN = 26
 
 SPI_DEV  = 0 # The pi only has one
 SPI_CHAN = 0 # CE0 as chip select
@@ -19,22 +17,23 @@ GPIO.setup(PIN_BT_DOWN,GPIO.IN,GPIO.PUD_DOWN)
 spi = spidev.SpiDev()
 spi.open(SPI_DEV,SPI_CHAN) 
 
-# Default settings
-#spi.bits_per_word = 8
-#spi.cshigh = False
-#spi.loop = False
-#spi.no_cs = False
-#spi.lsbfirst = False
-#spi.max_speed_hz = 125_000_000
-#spi.mode = 0 # CPOL/CPHA -> b00, b01, b10, b11
-#spi.threewire = False
+spi.max_speed_hz = 1000000 # 10MHz max
 
-spi.lsbfirst = False
-spi.bits_per_word = 8
-spi.mode = 0
-spi.no_cs = True
-spi.max_speed_hz = 500000 
-spi.threewire = False
+#spi.xfer([0xFF,0x00])
+
+#spi.xfer2([0x0C,0x01]) # Normal mode
+#spi.xfer2([0x09,0xFF]) # BCD all digits
+#spi.xfer2([0x0F,0x00]) # No test
+#spi.xfer2([0x0A,0xFF]) # Full intensity
+#spi.xfer2([0x0B,0xFF]) # All digits on
+#spi.xfer2([0x08,0x09])
+#spi.xfer2([0x07,0x02])
+#spi.xfer2([0x06,0x03])
+#spi.xfer2([0x05,0x04])
+#spi.xfer2([0x04,0x05])
+#spi.xfer2([0x03,0x06])
+#spi.xfer2([0x02,0x07])
+#spi.xfer2([0x01,0x09])
 
 def get_button_up():
     return GPIO.input(PIN_BT_UP)

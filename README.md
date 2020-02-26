@@ -14,6 +14,8 @@ Let's time the making of this project.
 
 [SPI Display](https://www.amazon.com/gp/product/B07CL2YNJQ)
 
+Max 7219
+
 # Schematic
 
 ![](art/schematic.jpg)
