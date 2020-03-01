@@ -48,11 +48,21 @@ def set_segments(data:list):
     # Raw segment/period data -- 8 values
     pass
 
-def set_digits(data:str):
+def set_digits(data:str,dps:list=None):
+    if not dps:
+        dps = [False,True,False,True,False,True,False,True]
+        
+    while len(dps)<8:
+        dps.insert(0,False)   
     while len(data)<8:
         data = '*'+data
+        
     for x in range(8):
-        if data[7-x]=='*':
-            spi.xfer2( [x+1,0x0F] )
+        digit = data[7-x]
+        if digit=='*':
+            digit = 0x0F
         else:
-            spi.xfer2( [x+1,int(data[7-x])] )
+            digit = int(digit)
+        if dps[7-x]:
+            digit = digit + 0x80
+        spi.xfer2( [x+1,digit] )

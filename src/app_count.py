@@ -34,12 +34,26 @@ while True:
     # This is now
     now = datetime.datetime.now()
     
-    # Number of seconds until target
+    # Total number of seconds until target
     delta = date-now
-    delta = int(delta.total_seconds())    
+    delta = int(delta.total_seconds())
+    total_seconds = delta
+    #print(total_seconds)
+    
+    # Days, hours, minutes, seconds
+    delta_seconds = delta % 60
+    delta = int(delta/60)
+    delta_minutes = delta % 60
+    delta = int(delta/60)
+    delta_hours = delta % 24
+    delta = int(delta/24)
+    delta_days = delta    
+    #print('days='+str(delta_days),'hours='+str(delta_hours),'mins='+str(delta_minutes),'secs='+str(delta_seconds))       
     
     # Update the display
-    hardware.set_digits(str(delta))
+    #display = str(total_seconds)    
+    display = int_to_string(delta_days,2,'0') + int_to_string(delta_hours,2,'0') + int_to_string(delta_minutes,2,'0') + int_to_string(delta_seconds,2,'0')
+    hardware.set_digits(display)
     
     # Wait for changes
     time.sleep(0.5) # Wait for changes (Nyquist rate)
