@@ -50,7 +50,7 @@ def set_segments(data:list):
 
 def set_digits(data:str,dps:list=None):
     if not dps:
-        dps = [False,True,False,True,False,True,False,True]
+        dps = [False]*8
         
     while len(dps)<8:
         dps.insert(0,False)   
